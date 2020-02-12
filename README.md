@@ -5,6 +5,8 @@ using python3
 
 pip install discord
 
+pip install requests
+
 create discord bot at https://discordapp.com/developers/applications/
 
 get tokens for IGDB at https://www.igdb.com/api
