@@ -9,9 +9,13 @@ class Game:
     def __init__(self, name):
         self.name = name
         self.platforms=[]
+        self.gamedate=[]
 
     def addPlatform(self,platform):
         self.platforms.append(platform)
+        
+    def addHuman(self,human):
+        self.gamedate.append(human)
 
 currentTime=datetime.now()
 
@@ -21,7 +25,7 @@ timestamp=calendar.timegm(d.timetuple())
 
 URL ="https://api-v3.igdb.com/release_dates"
 hdrs = {'user-key': 'YOUR IGDB KEY HERE'}
-payload='fields game.name, platform.name; where date='+str(timestamp)+';'
+payload='fields game.name, platform.name,human; where date='+str(timestamp)+';'
 
 r=requests.post(url=URL, headers=hdrs, data=payload)
 data=r.json
@@ -42,8 +46,10 @@ for i in range(len(game)):
     for j in resp_string:
         if game[i]==j["game"]["name"]:
             temp[i].addPlatform(j["platform"]["name"])
+            temp[i].addHuman(j["human"])
     
 for i in range(len(temp)):
     print(temp[i].name)
     print(temp[i].platforms)
+    print(temp[i].gamedate)
     print("")
